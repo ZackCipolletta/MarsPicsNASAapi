@@ -37,7 +37,6 @@ function displayImages(response) {
     
 }
 
-
 function displayError(error, date) {
   document.getElementById('error').innerText = `There was an error getting images from ${date}: ${error}.`;
 }
@@ -48,7 +47,6 @@ function marsFrom(event) {
   console.log(date);
   getMarsImages(date);
 }
-
 
 window.addEventListener("load", function () {
   document.getElementById('dateSelection').addEventListener("submit", marsFrom);
