@@ -1,35 +1,56 @@
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/styles.css';
-import Triangle from './js/triangle.js';
-import Rectangle from './js/rectangle.js';
+import MarsImages from './js/MarsImages.js';
 
-function handleTriangleForm() {
-  event.preventDefault();
-  document.querySelector('#response').innerText = null;
-  const length1 = parseInt(document.querySelector('#length1').value);
-  const length2 = parseInt(document.querySelector('#length2').value);
-  const length3 = parseInt(document.querySelector('#length3').value);
-  const triangle = new Triangle(length1, length2, length3);
-  const response = triangle.checkType();
-  const pTag = document.createElement("p");
-  pTag.append(`Your result is: ${response}.`);
-  document.querySelector('#response').append(pTag);
+// Business Logic
+
+async function getMarsImages(date) {
+  const response = await MarsImages.getImages(date);
+  if (response.photos.length > 1) {
+    displayImages(response, date);
+  } else {
+    displayError(response, date);
+  }
 }
 
-function handleRectangleForm() {
-  event.preventDefault();
-  document.querySelector('#response2').innerText = null;
-  const length1 = parseInt(document.querySelector('#rect-length1').value);
-  const length2 = parseInt(document.querySelector('#rect-length2').value);
-  const rectangle = new Rectangle(length1, length2);
-  const response = rectangle.getArea();
-  const pTag = document.createElement("p");
-  pTag.append(`The area of the rectangle is ${response}.`);
-  document.querySelector('#response2').append(pTag);
+// UI Logic
+
+function displayImages(response) {
+  console.log("hello");
+
+  // <img src="" alt=""></img>;
+
+                                                                      
+  let image1 = `${response['photos'][0]['img_src']}`;
+  // let image2 = `${response['photos'][1]['img_src']} Hello ${date}`;
+  // let image3 = `${response['photos'][2]['img_src']} Hello ${date}`;
+  // let image4 = `${response['photos'][3]['img_src']} Hello ${date}`;
+  // let image5 = `${response['photos'][4]['img_src']} Hello ${date}`;
+  // let image6 = `${response['photos'][5]['img_src']} Hello ${date}`;
+
+
+  let img = document.createElement('img');
+  img.setAttribute('src', image1);
+  
+  document.getElementById('images').append(img);
+    
 }
 
-window.addEventListener("load", function() {
-  document.querySelector("#triangle-checker-form").addEventListener("submit", handleTriangleForm);
-  document.querySelector("#rectangle-area-form").addEventListener("submit", handleRectangleForm);
+
+function displayError(error, date) {
+  document.getElementById('error').innerText = `There was an error getting images from ${date}: ${error}.`;
+}
+
+function marsFrom(event) {
+  event.preventDefault();
+  let date = document.getElementById("date").value;
+  console.log(date);
+  getMarsImages(date);
+}
+
+
+window.addEventListener("load", function () {
+  document.getElementById('dateSelection').addEventListener("submit", marsFrom);
+
 });
