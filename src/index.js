@@ -5,12 +5,12 @@ import MarsImages from './js/MarsImages.js';
 
 // Business Logic
 
-async function getMarsImages(date) {
-  const response = await MarsImages.getImages(date);
+async function getMarsImages(date, camera) {
+  const response = await MarsImages.getImages(date, camera);
   if (response.photos) {
-    displayImages(response, date);
+    displayImages(response, date, camera);
   } else {
-    displayError(response, date);
+    displayError(response, date, camera);
   }
 }
 
@@ -46,21 +46,41 @@ function displayError(error, date) {
   document.getElementById('error').innerText = `There was an error getting images from ${date}: ${error}.`;
 }
 
-function marsForm(event) {
-  event.preventDefault();
+function marsForm() {
   let date = document.getElementById("date").value;
   console.log(date);
-  getMarsImages(date);
+  return date;
 }
 
 function cameraSelect(event) {
   event.preventDefault();
-  let camera = document.getElementById("cameraSelection").value;
+  let camera = camSel();
+  let date = marsForm();
+  getMarsImages(date, camera);
   console.log(camera);
 }
 
+function camSel() {
+  const cam = document.getElementById("cameraSelection").value;
+  let selectedCam;
+  if (cam === "FHAZ") {
+    selectedCam = "FHAZ";
+  } else if (cam === "RHAZ") {
+    selectedCam = "RHAZ";
+  } else if (cam === "MAST") {
+    selectedCam = "MAST";
+  } else if (cam === "CHEMCAM") {
+    selectedCam = "CHEMCAM";
+  } else if (cam === "MAHLI") {
+    selectedCam = "MAHLI";
+  } else if (cam === "MARDI") {
+    selectedCam = "MARDI";
+  } else if (cam === "NAVCAM")
+    selectedCam = "NAVCAM";
+
+  return selectedCam;
+}
 window.addEventListener("load", function () {
-  document.getElementById('dateSelection').addEventListener("submit", marsForm);
   document.getElementById('cameraSelection').addEventListener("submit", cameraSelect);
 
 });
