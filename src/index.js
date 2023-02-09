@@ -25,7 +25,6 @@ async function getDates(rover) {
 
 // UI Logic
 function displayImages(response, rover, date, camera) {
-  console.log("hello");
 
   document.getElementById('images').innerText = `Here are the images from the ${rover} rover's ${camera} on ${date}on Mars.`;
 
@@ -34,7 +33,6 @@ function displayImages(response, rover, date, camera) {
       let img = document.createElement('img');
       img.setAttribute('src', `${response['photos'][i]['img_src']}`);
       document.getElementById('images').append(img);
-      console.log(element);
     }
   });
 }
@@ -53,7 +51,30 @@ function displayDatesActive(response, rover) {
 function displayRoverByDate(e) {
   e.preventDefault();
   const rover = document.getElementById("roverSelect").value;
+  hideCamera(rover);
   getDates(rover);
+}
+
+function hideCamera(rover) {
+  let camSelect = document.getElementById('cameraSelect').children;
+  let camSelectArr = Array.from(camSelect);
+
+  camSelectArr.forEach(element => {
+    element.removeAttribute('class');
+  });
+  if (rover === "Opportunity" || rover === "Spirit") {
+    let removeCam = document.querySelectorAll("#C");
+    let removeCamArr = Array.from(removeCam);
+    removeCamArr.forEach(element => {
+      element.setAttribute("class", "hidden");
+    });
+  } else if (rover === "Curiosity") {
+    let removeCam = document.querySelectorAll("#S");
+    let removeCamArr = Array.from(removeCam);
+    removeCamArr.forEach(element => {
+      element.setAttribute("class", "hidden");
+    });
+  }
 }
 
 function displayError(error, date) {
@@ -66,6 +87,7 @@ function dateError(error, rover) {
 
 function chooseRover() {
   const rover = document.getElementById("roverSelect").value;
+
   return rover;
 }
 

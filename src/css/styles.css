@@ -6,4 +6,8 @@ body {
     max-height: 75%;
     max-width: 75%;
   }
+
+  .hidden {
+    display: none;
+  }
   
