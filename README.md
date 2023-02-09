@@ -30,6 +30,9 @@
 * If using an API remember to add instructions for creating a .env file and adding it to your .gitignore + instructions for getting and setting up an API key
 * Include all steps for getting a key — from the link to sign up for an account to any steps to getting an API key to the name of the API key variables that should be added to the .env file. Including accurate instructions for getting and setting up an API key
 
+* Get API from: https://api.nasa.gov/index.html
+
+
 * Clone repository to your desktop
 * Navigate to the top level of the directory
 * Install all packages with $ npm install.

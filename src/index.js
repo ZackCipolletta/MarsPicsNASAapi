@@ -30,7 +30,6 @@ function displayImages(response, date) {
   });
 
   
-
   // let image1 = `${response['photos'][0]['img_src']}`;
 
 
@@ -61,25 +60,11 @@ function cameraSelect(event) {
 }
 
 function camSel() {
-  const cam = document.getElementById("cameraSelection").value;
-  let selectedCam;
-  if (cam === "FHAZ") {
-    selectedCam = "FHAZ";
-  } else if (cam === "RHAZ") {
-    selectedCam = "RHAZ";
-  } else if (cam === "MAST") {
-    selectedCam = "MAST";
-  } else if (cam === "CHEMCAM") {
-    selectedCam = "CHEMCAM";
-  } else if (cam === "MAHLI") {
-    selectedCam = "MAHLI";
-  } else if (cam === "MARDI") {
-    selectedCam = "MARDI";
-  } else if (cam === "NAVCAM")
-    selectedCam = "NAVCAM";
-
-  return selectedCam;
+  const cam = document.getElementById("cameraSelect").value;
+  return cam;
 }
+
+
 window.addEventListener("load", function () {
   document.getElementById('cameraSelection').addEventListener("submit", cameraSelect);
 
