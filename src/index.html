@@ -6,14 +6,35 @@
 <body>
   <h3>Get images from the Mars rovers:</h3>
 
-<form id="dateSelection">
-  <label for="date">Search by date:</label>
-  <input id="date" type="date">
-  <button type="submit">Choose Date</button>
-</form >
+  <form id="dateSelection">
+    <label for="date">Search by date:</label>
+    <input id="date" type="date">
+    <button type="submit">Choose Date</button>
+  </form >
+  <form id="cameraSelection">
+    <label for="cameraSelect">Choose a camera</label>
+    <select name="camera" id="cameraSelect">
+      <option value="">--Please choose a camera--</option>
+      <option value="FHAZ">FHAZ</option>
+      <option value="RHAZ">RHAZ</option>
+      <option value="MAST">MAST</option>
+      <option value="CHEMCAM">CHEMCAM</option>
+      <option value="MARDI">MARDI</option>
+      <option value="NAVCAM">NAVCAM</option>
+      <!-- <option value="PANCAM">PANCAM</option>
+      <option value="MINITES">MINITES</option> -->
+    </select>
+    <button type="submit">Choose a camera</button>
+  </form>
+<br>
+<br>
+<br>
 
-  <p id="images"></p>
+<p id="error"></p>
+  <div id="imagesDiv">
+    <p id="images"></p>
+  </div>
 
-  <p id="error"></p>
+
 </body>
 </html>
