@@ -14,7 +14,6 @@ async function getMarsImages(rover, date, camera) {
   }
 }
 
-
 async function getDates(rover) {
   const response = await MarsImages.getDates(rover);
   if (response) {
@@ -23,8 +22,6 @@ async function getDates(rover) {
     dateError(response, rover);
   }
 }
-
-
 
 // UI Logic
 function displayImages(response, rover, date, camera) {
@@ -43,18 +40,19 @@ function displayImages(response, rover, date, camera) {
 }
 
 function displayDatesActive(response, rover) {
-  response.photo_manifest.photos.forEach((element, i) => {
-    console.log(`${response['photo_manifest']['photos'][i]['earth_date']}`);
-
-  })
-
-  console.log(`display date called ${response['photo_manifest']['photos'][0]['earth_date']}`);
+  let a = response.photo_manifest.photos.length;
+  let y = a - 1;
+  let calendarSelection = document.getElementById('dateSelect');
+  let b = response['photo_manifest']['photos'][0]['earth_date'];
+  let c = response['photo_manifest']['photos'][y]['earth_date'];
+  calendarSelection.setAttribute('min', b);
+  calendarSelection.setAttribute('max', c);
   document.getElementById('dateError').innerText = `Here are the dates the ${rover} was active on Mars.`;
 }
 
-function displayDate(e) {
+function displayRoverByDate(e) {
   e.preventDefault();
-  const rover = document.getElementById("roverDateSelect").value;
+  const rover = document.getElementById("roverSelect").value;
   getDates(rover);
 }
 
@@ -72,7 +70,7 @@ function chooseRover() {
 }
 
 function chooseDate() {
-  let date = document.getElementById("date").value;
+  let date = document.getElementById("dateSelect").value;
   console.log(date);
   return date;
 }
@@ -93,6 +91,6 @@ function displayMarsImages(event) {
 
 window.addEventListener("load", function () {
   document.getElementById('cameraSelection').addEventListener("submit", displayMarsImages);
-  document.getElementById('roverDatesSelection').addEventListener("submit", displayDate);
+  document.getElementById('roverSelection').addEventListener("submit", displayRoverByDate);
 
 });
