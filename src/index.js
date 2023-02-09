@@ -5,20 +5,32 @@ import MarsImages from './js/MarsImages.js';
 
 // Business Logic
 
-async function getMarsImages(date, camera) {
-  const response = await MarsImages.getImages(date, camera);
+async function getMarsImages(rover, date, camera) {
+  const response = await MarsImages.getImages(rover, date, camera);
   if (response.photos) {
-    displayImages(response, date, camera);
+    displayImages(response, rover, date, camera);
   } else {
-    displayError(response, date, camera);
+    displayError(response, rover, date, camera);
   }
 }
 
+
+async function getDates(rover) {
+  const response = await MarsImages.getDates(rover);
+  if (response) {
+    displayDatesActive(response, rover);
+  } else {
+    dateError(response, rover);
+  }
+}
+
+
+
 // UI Logic
-function displayImages(response, date) {
+function displayImages(response, rover, date, camera) {
   console.log("hello");
 
-  document.getElementById('images').innerText = `Here are the images for ${date} on Mars.`;
+  document.getElementById('images').innerText = `Here are the images from the ${rover} rover's ${camera} on ${date}on Mars.`;
 
   response.photos.forEach((element, i) => {
     if (i <= 5) {
@@ -28,44 +40,59 @@ function displayImages(response, date) {
       console.log(element);
     }
   });
-
-  
-  // let image1 = `${response['photos'][0]['img_src']}`;
-
-
-  // let img = document.createElement('img');
-  // img.setAttribute('src', image1);
-
-  // document.getElementById('images').append(img);
-
 }
 
+function displayDatesActive(response, rover) {
+  response.photo_manifest.photos.forEach((element, i) => {
+    console.log(`${response['photo_manifest']['photos'][i]['earth_date']}`);
+
+  })
+
+  console.log(`display date called ${response['photo_manifest']['photos'][0]['earth_date']}`);
+  document.getElementById('dateError').innerText = `Here are the dates the ${rover} was active on Mars.`;
+}
+
+function displayDate(e) {
+  e.preventDefault();
+  const rover = document.getElementById("roverDateSelect").value;
+  getDates(rover);
+}
 
 function displayError(error, date) {
   document.getElementById('error').innerText = `There was an error getting images from ${date}: ${error}.`;
 }
 
-function marsForm() {
+function dateError(error, rover) {
+  document.getElementById('error').innerText = `There was an error getting the active dates for ${rover}: ${error}.`;
+}
+
+function chooseRover() {
+  const rover = document.getElementById("roverSelect").value;
+  return rover;
+}
+
+function chooseDate() {
   let date = document.getElementById("date").value;
   console.log(date);
   return date;
 }
 
-function cameraSelect(event) {
-  event.preventDefault();
-  let camera = camSel();
-  let date = marsForm();
-  getMarsImages(date, camera);
-  console.log(camera);
-}
-
-function camSel() {
+function chooseCam() {
   const cam = document.getElementById("cameraSelect").value;
   return cam;
 }
 
+function displayMarsImages(event) {
+  event.preventDefault();
+  let rover = chooseRover();
+  let camera = chooseCam();
+  let date = chooseDate();
+  getMarsImages(rover, date, camera);
+  console.log(camera);
+}
 
 window.addEventListener("load", function () {
-  document.getElementById('cameraSelection').addEventListener("submit", cameraSelect);
+  document.getElementById('cameraSelection').addEventListener("submit", displayMarsImages);
+  document.getElementById('roverDatesSelection').addEventListener("submit", displayDate);
 
 });

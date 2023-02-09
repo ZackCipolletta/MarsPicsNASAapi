@@ -6,11 +6,25 @@
 <body>
   <h3>Get images from the Mars rovers:</h3>
 
+
+
+</form >
+<form id="roverSelection">
+  <label for="roverSelect">Choose a rover:</label>
+  <select name="rover" id="roverSelect">
+    <option value="">--Please choose a rover--</option>
+    <option value="Curiosity">Curiosity</option>
+    <option value="Opportunity">Opportunity</option>
+    <option value="Spirit">Spirit</option>
+  </select>
+</form>
+
   <form id="dateSelection">
     <label for="date">Search by date:</label>
     <input id="date" type="date">
     <!-- <button type="submit">Choose Date</button> -->
   </form >
+
   <form id="cameraSelection">
     <label for="cameraSelect">Choose a camera</label>
     <select name="camera" id="cameraSelect">
@@ -22,14 +36,29 @@
       <option value="MAHLI">MAHLI</option>
       <option value="MARDI">MARDI</option>
       <option value="NAVCAM">NAVCAM</option>
-      <!-- <option value="PANCAM">PANCAM</option>
-      <option value="MINITES">MINITES</option> -->
+      <option value="PANCAM">PANCAM</option>
+      <option value="MINITES">MINITES</option>
     </select>
     <button type="submit">Choose a camera</button>
   </form>
 <br>
+<p>Check which dates each rover was active:</p>
+<form id="roverDatesSelection">
+  <label for="roverDateSelect">Choose a rover:</label>
+  <select name="rover" id="roverDateSelect">
+    <option value="">--Please choose a rover--</option>
+    <option value="Curiosity">Curiosity</option>
+    <option value="Opportunity">Opportunity</option>
+    <option value="Spirit">Spirit</option>
+  </select>
+  <button type="submit">Choose a camera</button>
+</form>
+</form >
 <br>
 <br>
+<br>
+
+<p id="dateError"></p>
 
 <p id="error"></p>
   <div id="imagesDiv">
