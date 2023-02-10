@@ -45,8 +45,13 @@
 
 * _Any known issues_
 * _should go here_
+
+## Future improvements
 * Currently the calendar range allows the user to only select dates on which the selected rover was active. Future functionality would include using the manifest to blackout dates when a selected rover did not take any pictures and show only cameras that were active on the specified date.  For example on date X Opportunity may have only taken picutes with one of it's cameras, the user would only be able to select this once camera as an option for Opportunity on that date.
 * Another piece of future functionality would be the ability to click on each image and have it blow up to full-size resolution.
+* change rover selection to use radio buttons
+* 'change' event listener on radio buttons for rover selection.
+* use 'change' event listener on calendar to call function which will update the cameras list to show only cameras that were active on selected date for specified rover
 
 ## License
 MIT
